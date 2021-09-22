@@ -140,6 +140,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # From Djoser docs
 REST_FRAMEWOR = {
+    'DEFAULT_ATHENTICATION_CLASSES' : [
+        'rest_framework.permisson.IsAuthenticated'
+    ],
      'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         # (...)
