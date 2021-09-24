@@ -5,19 +5,23 @@ import {
   ResetPasswordComp, ResetPasswordConfirmComp
 } from "./Containers/Containers";
 import { LayoutComp } from "./HOC/Layout";
+import { Provider } from "react-redux";
+import { store } from "./State/Store";
 
-const App = () => <Router>
+const App = () => <Provider store={store} >
 
-  <LayoutComp>
-    <Switch>
+  <Router>
+    <LayoutComp>
+      <Switch>
         <Route exact path="/" component={HomeComp} />
         <Route exact path="/login" component={LoginComp} />
         <Route exact path="/signup" component={SignupComp} />
         <Route exact path="/activate/:uid/:token" component={ActivateComp} />
         <Route exact path="/reset-password" component={ResetPasswordComp} />
         <Route exact path="/password/reset/confirm/:uid/:token" component={ResetPasswordConfirmComp} />
-    </Switch>
-  </LayoutComp>
-</Router>
+      </Switch>
+    </LayoutComp>
+  </Router>
+</Provider>
 
 export default App;

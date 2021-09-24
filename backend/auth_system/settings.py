@@ -131,21 +131,21 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
 STATIC_URL = '/static/'
-STATIC_FILES_DIR = [
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+
+# print(f"Static Root : ${STATIC_FILES_DIRS} ")
 # From Djoser docs
-REST_FRAMEWOR = {
-    'DEFAULT_ATHENTICATION_CLASSES' : [
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSON_CLASSES' : [
         'rest_framework.permisson.IsAuthenticated'
     ],
      'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # (...)
     ),
 }
 # From Djoser docs
