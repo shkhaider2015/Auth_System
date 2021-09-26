@@ -4,7 +4,7 @@ import {
   HomeComp, LoginComp, SignupComp, ActivateComp,
   ResetPasswordComp, ResetPasswordConfirmComp
 } from "./Containers/Containers";
-import { LayoutComp } from "./HOC/Layout";
+import LayoutComp from "./HOC/Layout";
 import { Provider } from "react-redux";
 import { store } from "./State/Store";
 

@@ -1,14 +1,22 @@
 import { FC, useState } from "react"
 import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { login } from "../State/Actions/Auth";
+import { connect, useSelector } from "react-redux";
+// import { login } from "../State/Actions/Auth";
+import { IAuthState } from "../State/Types/Auth";
+import { useAction } from "../State/ActionHook";
+import { RootReducer } from "../State/Reducers/index";
 
 
+type IState = ReturnType<typeof RootReducer>
 
-const LoginComp:FC<TLoginProp> = ({ login }) =>
+
+const LoginComp = () =>
 {
+    const isAuthenticated = useSelector((state:IState) => state.Auth.isAuthenticated)
+    const { login } = useAction()
     const [formData, setFormData] = useState<ILoginFormData>({email : '', password : ''})
     const {email, password} = formData;
+
 
     const onChange = (e:any) => setFormData({ ...formData, [e.target.name] : e.target.value })
     
@@ -19,6 +27,10 @@ const LoginComp:FC<TLoginProp> = ({ login }) =>
     };
 
 
+    if(isAuthenticated)
+    {
+        return <Redirect to="/" />
+    }
 
 
     return <div className="container mt-5" >
@@ -61,9 +73,16 @@ interface ILoginFormData {
     password : string
 }
 
-type TLoginProp = {
-    login : any
-}
+// type TLoginProp = {
+//     login : any
+// }
+// type TStateMap = {
+//     isAuthenticated : any
+// }
 
+// const mapStateToProps = (state:any) => ({
+//     isAuthenticated : state.auth.isAuthenticated ? state.auth.isAuthenticated : null 
+// })
 
-export default connect(null, {  login })(LoginComp) 
+// export default connect(mapStateToProps, {  login })(LoginComp) 
+export default LoginComp

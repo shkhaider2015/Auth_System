@@ -12,6 +12,12 @@ export const Auth = (state=initialState, action:any) => {
     const {type, payload} = action;
 
     switch (type) {
+        case ECases.AUTHENTICATED_SUCCESS:
+            state = {
+                ...state,
+                isAuthenticated : true
+            }
+            return state;
         case ECases.lOGIN_SUCCESS:
             localStorage.setItem('access', payload.access)
             state = {
@@ -22,6 +28,7 @@ export const Auth = (state=initialState, action:any) => {
             }
             return state
         case ECases.LOGIN_FAIL:
+        case ECases.LOGOUT:
             localStorage.removeItem('access')
             localStorage.removeItem('refresh')
             state = {
@@ -30,6 +37,12 @@ export const Auth = (state=initialState, action:any) => {
                 refresh : null,
                 isAuthenticated : false,
                 user : null
+            }
+            return state;
+        case ECases.AUTHENTICATED_FAIL:
+            state = {
+                ...state,
+                isAuthenticated : false
             }
             return state;
         case ECases.USER_LOADED_SUCCESS:

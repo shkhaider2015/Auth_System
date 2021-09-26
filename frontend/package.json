@@ -27,7 +27,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "delete": "rmdir /s C:\\Users\\Haider\\Documents\\MEGAsync\\1_OneDrive\\Python3\\Django\\Auth_System\\backend\\build",
+    "build": " react-scripts build",
+    "move": "Xcopy build C:\\Users\\Haider\\Documents\\MEGAsync\\1_OneDrive\\Python3\\Django\\Auth_System\\backend\\build /E/H/C/I",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
