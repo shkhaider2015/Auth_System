@@ -4,10 +4,9 @@ import { connect, useSelector } from "react-redux";
 // import { login } from "../State/Actions/Auth";
 import { IAuthState } from "../State/Types/Auth";
 import { useAction } from "../State/ActionHook";
-import { RootReducer } from "../State/Reducers/index";
+import { IState } from "../State/Types/Reducers";
 
 
-type IState = ReturnType<typeof RootReducer>
 
 
 const LoginComp = () =>
