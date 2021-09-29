@@ -16,6 +16,7 @@ const LoginComp = () =>
     const [formData, setFormData] = useState<ILoginFormData>({email : '', password : ''})
     const {email, password} = formData;
 
+    
 
     const onChange = (e:any) => setFormData({ ...formData, [e.target.name] : e.target.value })
     

@@ -18,6 +18,13 @@ export const Auth = (state=initialState, action:any) => {
                 isAuthenticated : true
             }
             return state;
+        case ECases.AUTHENTICATED_FAIL:
+            state = {
+                ...state,
+                isAuthenticated : false
+            }
+            return state;
+        
         case ECases.lOGIN_SUCCESS:
             localStorage.setItem('access', payload.access)
             state = {
@@ -39,12 +46,7 @@ export const Auth = (state=initialState, action:any) => {
                 user : null
             }
             return state;
-        case ECases.AUTHENTICATED_FAIL:
-            state = {
-                ...state,
-                isAuthenticated : false
-            }
-            return state;
+            
         case ECases.USER_LOADED_SUCCESS:
             state = {
                 ...state,
@@ -57,6 +59,14 @@ export const Auth = (state=initialState, action:any) => {
                 user : null
             }
             return state
+        
+        case ECases.PASSWORD_RESET_SUCCESS:
+        case ECases.PASSWORD_RESET_FAIL:
+        case ECases.PASSWORD_RESET_CONFIRM_SUCCESS:
+        case ECases.PASSWORD_RESET_CONFIRM_FAIL:
+            state = { ...state }
+            return state
+            
         default:
             return state
     }

@@ -120,3 +120,50 @@ export const logout = () => async (dispatch:any) => {
         type : ECases.LOGOUT
     })
 }
+
+export const passwordReset = (email:string) => async (dispatch:any) => {
+    const config = {
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    }
+
+    const body = JSON.stringify({email});
+
+    try {
+        await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password/`, body, config);
+
+        dispatch({
+            type : ECases.PASSWORD_RESET_SUCCESS
+        })
+    } catch (error) {
+        dispatch({
+            type : ECases.PASSWORD_RESET_FAIL
+        })
+        
+    }
+}
+
+export const reset_password_confirm = (uid:string, token:string, new_password:string, re_new_password:string ) => async (dispatch:any) => {
+    const config = {
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    };
+
+    const body = JSON.stringify({ uid, token, new_password, re_new_password });
+
+    try {
+        await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/reset_password_confirm/`, body, config);
+
+        dispatch({
+            type : ECases.PASSWORD_RESET_CONFIRM_SUCCESS
+        })
+    } catch (error) {
+        dispatch({
+            type : ECases.PASSWORD_RESET_CONFIRM_FAIL
+        })
+        
+    }
+
+}
