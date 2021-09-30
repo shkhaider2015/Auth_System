@@ -9,6 +9,10 @@ export enum ECases {
     PASSWORD_RESET_FAIL = "password_reset_fail",
     PASSWORD_RESET_CONFIRM_SUCCESS = "password_reset_confirm_success",
     PASSWORD_RESET_CONFIRM_FAIL = "password_reset_confirm_fail",
+    SIGNUP_SUCCESS = "signup-success",
+    SIGNUP_FAIL = "signup-fail",
+    ACTIVATION_SUCCESS = "activation-success",
+    ACTIVATION_FAIL = "activation-fail",
     LOGOUT = "logout"
 }
 

@@ -1,8 +1,6 @@
-import { FC, useState } from "react"
+import { useState } from "react"
 import { Link, Redirect } from "react-router-dom";
-import { connect, useSelector } from "react-redux";
-// import { login } from "../State/Actions/Auth";
-import { IAuthState } from "../State/Types/Auth";
+import { useSelector } from "react-redux";;
 import { useAction } from "../State/ActionHook";
 import { IState } from "../State/Types/Reducers";
 
@@ -73,16 +71,4 @@ interface ILoginFormData {
     password : string
 }
 
-// type TLoginProp = {
-//     login : any
-// }
-// type TStateMap = {
-//     isAuthenticated : any
-// }
-
-// const mapStateToProps = (state:any) => ({
-//     isAuthenticated : state.auth.isAuthenticated ? state.auth.isAuthenticated : null 
-// })
-
-// export default connect(mapStateToProps, {  login })(LoginComp) 
 export default LoginComp

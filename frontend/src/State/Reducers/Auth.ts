@@ -35,6 +35,13 @@ export const Auth = (state=initialState, action:any) => {
             }
             return state
         case ECases.LOGIN_FAIL:
+        case ECases.SIGNUP_SUCCESS:
+            state = {
+                ...state,
+                isAuthenticated : false
+            }
+            return state
+        case ECases.SIGNUP_FAIL:
         case ECases.LOGOUT:
             localStorage.removeItem('access')
             localStorage.removeItem('refresh')

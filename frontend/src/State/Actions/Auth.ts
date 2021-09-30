@@ -167,3 +167,57 @@ export const reset_password_confirm = (uid:string, token:string, new_password:st
     }
 
 }
+
+export const signup = (name:string, email:string, password:string, re_password:string) => async (dispatch:any) => {
+    const config = {
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    }
+
+    const body = JSON.stringify({name, email, password, re_password})
+
+    try {
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/`, body, config)
+
+        dispatch({
+            type : ECases.SIGNUP_SUCCESS,
+            payload : res.data
+        })
+
+        dispatch(load_user())
+    } catch (error) {
+
+        dispatch({
+            type  : ECases.SIGNUP_FAIL
+        })
+        
+    }
+}
+
+export const verify = (uid:string, token:string) => async (dispatch:any) => {
+    const config = {
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    }
+
+    const body = JSON.stringify({uid, token})
+
+    try {
+        
+        await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/activation/`, body, config)
+
+        dispatch({
+            type : ECases.ACTIVATION_SUCCESS
+        })
+
+        dispatch(load_user())
+    } catch (error) {
+
+        dispatch({
+            type  : ECases.ACTIVATION_FAIL
+        })
+        
+    }
+}
