@@ -1,4 +1,4 @@
-import { ECases, IAuthState } from "../Types/Auth";
+import { ECases } from "../Types/Auth";
 import axios from "axios";
 
 export const checkAuthenticated = () => async (dispatch:any) => {

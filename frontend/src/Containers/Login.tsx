@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";;
+import { useSelector } from "react-redux";
 import { useAction } from "../State/ActionHook";
 import { IState } from "../State/Types/Reducers";
 
@@ -71,4 +71,4 @@ interface ILoginFormData {
     password : string
 }
 
-export default LoginComp
+export {LoginComp}

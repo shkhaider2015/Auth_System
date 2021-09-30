@@ -1,6 +1,6 @@
 import { ActivateComp } from "./Activate";
 import { HomeComp } from "./Home";
-import LoginComp from "./Login";
+import { LoginComp } from "./Login";
 import { ResetPasswordComp } from "./ResetPassword";
 import { ResetPasswordConfirmComp } from "./ResetPasswordConfirm";
 import { SignupComp } from "./Signup";

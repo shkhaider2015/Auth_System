@@ -1,23 +1,11 @@
-import { FC, ReactNode, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 import { NavbarComp } from "../Components/Components";
-import { connect } from "react-redux";
-import { checkAuthenticated, load_user } from "../State/Actions/Auth";
 import { useAction } from "../State/ActionHook";
 
-
-// interface IMapDispatchToProps {
-//     checkAuthenticated : typeof checkAuthenticated
-//     load_user : typeof load_user
-// }
 
 interface IProps{
     children : ReactNode,
 }
-
-// const actions = {
-//     checkAuthenticated,
-//     load_user
-// }
 
 
 const LayoutComp  = (prop:IProps) =>
@@ -27,10 +15,8 @@ const LayoutComp  = (prop:IProps) =>
     useEffect(() => {
         checkAuthenticated()
         load_user()
-        
+        // eslint-disable-next-line
     }, [])
-
-    console.log("props : ", prop)
 
     return <div>
         <NavbarComp />
@@ -38,7 +24,5 @@ const LayoutComp  = (prop:IProps) =>
     </div>
 }
 
-
-// export default connect(null, actions )(LayoutComp)
 
 export default LayoutComp;

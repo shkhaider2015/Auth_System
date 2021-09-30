@@ -1,8 +1,6 @@
 import { useState } from "react"
 import { Link, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { login } from "../State/Actions/Auth";
-import { IAuthState } from "../State/Types/Auth";
 import { useAction } from "../State/ActionHook";
 import { IState } from "../State/Types/Reducers";
 
@@ -14,7 +12,7 @@ const SignupComp = () =>
     const [isAccountCreated, setIsAccountCreated] = useState<boolean>(false);
     const isAuthenticated = useSelector((state:IState) => state.Auth.isAuthenticated)
     const { signup } = useAction()
-    const [formData, setFormData] = useState<ILoginFormData>({
+    const [formData, setFormData] = useState<ISignupFormData>({
         name : '',
         email : '',
         password : '',
@@ -105,7 +103,7 @@ const SignupComp = () =>
     </div>
 }
 
-interface ILoginFormData {
+interface ISignupFormData {
     name : string
     email : string
     password : string

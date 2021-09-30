@@ -1,10 +1,6 @@
-import { FC, useState } from "react"
-import { Link, Redirect } from "react-router-dom";
-import { connect, useSelector } from "react-redux";
-// import { login } from "../State/Actions/Auth";
-import { IAuthState } from "../State/Types/Auth";
+import { useState } from "react"
+import { Redirect } from "react-router-dom";
 import { useAction } from "../State/ActionHook";
-import { IState } from "../State/Types/Reducers";
 
 
 
