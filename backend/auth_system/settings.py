@@ -39,12 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Rest Apis
     'rest_framework',
     'djoser',
-    'accounts'
+    'accounts',
+    # Social Auths
+    'social_django',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist'
 ]
 
 MIDDLEWARE = [
+    # Social Auths
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+    # Others
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -67,6 +75,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # Social Auths
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect'
             ],
         },
     },
@@ -149,11 +160,22 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+# Social Auths
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # From Djoser docs
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('JWT',),
    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+   # Social Auth
+   'AUTH_TOKEN_CLASSES' : (
+       'rest_framework_simplejwt.tokens.AccessToken',
+   )
 }
 # From Djoser docs
 DJOSER = {
@@ -168,13 +190,26 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL' : 'email/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL' : 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL' : True,
+    'SOCIAL_AUTH_TOKEN_STRATEGY' : 'djoser.social.token.jwt.TokenStrategy',
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS' : ['http://localhost:8000'],
     'SERIALIZERS' : {
         'user_create' : 'accounts.serializers.UserCreateSerializer',
         'user' : 'accounts.serializers.UserCreateSerializer',
         'user_delete' : 'accounts.serializers.UserDeleteSerializer',
+        # Social Auths
+        'current_user' : 'accounts.serializers.UserCreateSerializer'
     }
 }
 
+# Social Auths
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1032726506762-8djp8gqcg4189vbc2u3e21q5u83lttmf.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xfz0eOsaqUIiQNGFMbep13Mo'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
+    'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile',
+    'openid'
+]
+SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = [ 'first_name', 'last_name' ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

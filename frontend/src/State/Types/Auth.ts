@@ -13,7 +13,11 @@ export enum ECases {
     SIGNUP_FAIL = "signup-fail",
     ACTIVATION_SUCCESS = "activation-success",
     ACTIVATION_FAIL = "activation-fail",
-    LOGOUT = "logout"
+    LOGOUT = "logout",
+    GOOGLE_AUTH_SUCCESS = "google-auth-success",
+    GOOGLE_AUTH_FAIL = "google-auth-fail",
+    FACEBOOK_AUTH_SUCCESS = "facebook-auth-success",
+    FACEBOOK_AUTH_FAIL = "facebook-auth-fail",
 }
 
 export interface IAuthState {
@@ -22,3 +26,12 @@ export interface IAuthState {
     isAuthenticated : boolean | null
     user : string | null
 }
+
+export interface IGoogleAuthDetail {
+    'state' : string|string[]
+    'code' : string|string[]
+}
+
+export type items = {
+    [key: string]: string,
+   }[]

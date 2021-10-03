@@ -1,9 +1,88 @@
-import { ECases } from "../Types/Auth";
+import { ECases, IGoogleAuthDetail } from "../Types/Auth";
 import axios from "axios";
+
+export const load_user = () => async (dispatch:any) => {
+    const isAccess:string|null = localStorage.getItem('access')
+    if(isAccess)
+    {
+        const config = {
+            headers : {
+                'Content-Type' : 'application/json',
+                'Authorization' : `JWT ${isAccess}`,
+                'Accept' : 'application/json'
+            }
+        }
+
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config)
+            dispatch({
+                type : ECases.USER_LOADED_SUCCESS,
+                payload : res.data
+            })
+        } catch (error) {
+    
+            dispatch({
+                type  : ECases.USER_LOADED_FAIL
+            })
+            
+        }
+
+
+    }
+    else
+    {
+        dispatch({
+            type  : ECases.USER_LOADED_FAIL
+        })
+        
+    }
+    
+}
+
+export const googleAuthentication = (state:string|string[], code:string|string[]) => async (dispatch:any) => {
+    const isAccess:string|null = localStorage.getItem('access');
+    if(state && code && !isAccess)
+    {
+        const config = {
+            headers : {
+                'Content-Type' : 'application/x-www-form-urlencoded'
+            }
+        }
+
+        
+
+        const details:IGoogleAuthDetail = {
+            state : state,
+            code : code
+        }
+
+        const formBody  = Object.keys(details).map((key:string) => encodeURIComponent(key) + '=' + encodeURIComponent((details as any)[key]) ).join('&')
+
+        try {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?${formBody}`, config)
+
+            dispatch({
+                type : ECases.GOOGLE_AUTH_SUCCESS,
+                payload : res.data
+            })
+            dispatch(load_user())
+        } catch (error) {
+            dispatch({
+                type : ECases.GOOGLE_AUTH_FAIL
+            })
+        }
+    }
+    else
+    {
+       
+    }
+}
 
 export const checkAuthenticated = () => async (dispatch:any) => {
 
-    if(localStorage.getItem('access'))
+    const isAccess:string|null = localStorage.getItem('access');
+
+    if(isAccess)
     {
         const config = {
             headers : {
@@ -12,11 +91,10 @@ export const checkAuthenticated = () => async (dispatch:any) => {
             }
         }
 
-        const body = JSON.stringify({ token : localStorage.getItem('access') });
+        const body = JSON.stringify({ token : isAccess });
 
         try {
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/jwt/verify/`, body, config);
-
             if(res.data.code !== 'token_not_valid')
             {
                 dispatch({
@@ -45,47 +123,6 @@ export const checkAuthenticated = () => async (dispatch:any) => {
     }
 
 }
-
-
-export const load_user = () => async (dispatch:any) => {
-    if(localStorage.getItem('access'))
-    {
-        const config = {
-            headers : {
-                'Content-Type' : 'application/json',
-                'Authorization' : `JWT ${localStorage.getItem('access')}`,
-                'Accept' : 'application/json'
-            }
-        }
-
-        try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, config)
-    
-            dispatch({
-                type : ECases.USER_LOADED_SUCCESS,
-                payload : res.data
-            })
-        } catch (error) {
-    
-            dispatch({
-                type  : ECases.USER_LOADED_FAIL
-            })
-            
-        }
-
-
-    }
-    else
-    {
-        dispatch({
-            type  : ECases.USER_LOADED_FAIL
-        })
-        
-    }
-    
-}
-
-
 
 export const login = (email:string, password:string) => async (dispatch:any) => {
     const config = {
@@ -168,14 +205,14 @@ export const reset_password_confirm = (uid:string, token:string, new_password:st
 
 }
 
-export const signup = (name:string, email:string, password:string, re_password:string) => async (dispatch:any) => {
+export const signup = (first_name:string, last_name:string, email:string, password:string, re_password:string) => async (dispatch:any) => {
     const config = {
         headers : {
             'Content-Type' : 'application/json'
         }
     }
 
-    const body = JSON.stringify({name, email, password, re_password})
+    const body = JSON.stringify({first_name, last_name, email, password, re_password})
 
     try {
         const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/users/`, body, config)

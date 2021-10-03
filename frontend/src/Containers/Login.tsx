@@ -3,6 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAction } from "../State/ActionHook";
 import { IState } from "../State/Types/Reducers";
+import axios from "axios";
 
 
 
@@ -24,6 +25,18 @@ const LoginComp = () =>
         login(email, password)
     };
 
+    const continueWithGoogle = async () =>
+    {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}`)
+            
+            window.location.replace(res.data.authorization_url)
+        } catch (error) {
+            
+        }
+    }
+
+    
 
     if(isAuthenticated)
     {
@@ -60,9 +73,10 @@ const LoginComp = () =>
             </div>
             
             <button className="btn btn-primary mt-2" type="submit" >Login</button>
+        </form>
+            <button className="btn btn-danger mt-3" onClick={() => continueWithGoogle()} >Continue with google</button>
             <p className="mt-3" > Dont have an account? <Link to="/signup" >Signup</Link> </p>
             <p className="mt-3" >Forgot your password? <Link to="reset-password" >Reset Password</Link> </p>
-        </form>
     </div>
 }
 

@@ -26,6 +26,7 @@ export const Auth = (state=initialState, action:any) => {
         
         case ECases.lOGIN_SUCCESS:
             localStorage.setItem('access', payload.access)
+            localStorage.setItem('refresh', payload.refresh)
             state = {
                 ...state,
                 isAuthenticated : true,
@@ -33,13 +34,16 @@ export const Auth = (state=initialState, action:any) => {
                 refresh : payload.refresh,
             }
             return state
-        case ECases.LOGIN_FAIL:
+           
         case ECases.SIGNUP_SUCCESS:
             state = {
                 ...state,
                 isAuthenticated : false
             }
             return state
+       
+        case ECases.GOOGLE_AUTH_FAIL:
+        case ECases.LOGIN_FAIL:
         case ECases.SIGNUP_FAIL:
         case ECases.LOGOUT:
             localStorage.removeItem('access')
@@ -66,6 +70,17 @@ export const Auth = (state=initialState, action:any) => {
             }
             return state
         
+        case ECases.GOOGLE_AUTH_SUCCESS:
+            localStorage.setItem('access', payload.access)
+            localStorage.setItem('refresh', payload.refresh)
+            state = {
+                ...state,
+                isAuthenticated : true,
+                access : payload.access,
+                refresh : payload.refresh,
+            }
+            return state
+      
         case ECases.PASSWORD_RESET_SUCCESS:
         case ECases.PASSWORD_RESET_FAIL:
         case ECases.PASSWORD_RESET_CONFIRM_SUCCESS:

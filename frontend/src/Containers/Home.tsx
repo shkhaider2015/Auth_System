@@ -4,7 +4,7 @@ import { IAuthState } from "../State/Types/Auth"
 
 export const HomeComp = () => {
 
-    const isAuthenticated = useSelector((state: IAuthState) => state.isAuthenticated)
+    const isUser = useSelector((state: IAuthState) => state.user)
     const history = useHistory();
 
     return <div className="container" >
@@ -13,7 +13,7 @@ export const HomeComp = () => {
             <p>This is an incredible authentication system with production level features</p>
             <hr />
             {
-                isAuthenticated
+                isUser
                     ? <p>Logged in successfuly</p>
                     : <div>
                         <p>Click the login button</p>
