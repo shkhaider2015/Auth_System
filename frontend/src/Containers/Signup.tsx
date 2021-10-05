@@ -53,11 +53,21 @@ const SignupComp = () => {
 
     const continueWithGoogle = async () => {
         try {
-            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}`)
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/o/google-oauth2/?redirect_uri=${process.env.REACT_APP_API_URL}/google`)
 
             window.location.replace(res.data.authorization_url)
         } catch (error) {
 
+        }
+    }
+    const continueWithFacebook = async () =>
+    {
+        try {
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/auth/o/facebook/?redirect_uri=${process.env.REACT_APP_API_URL}/facebook`)
+            
+            window.location.replace(res.data.authorization_url)
+        } catch (error) {
+            
         }
     }
 
@@ -176,6 +186,8 @@ const SignupComp = () => {
         </form>
 
         <button className="btn btn-danger mt-3" onClick={() => continueWithGoogle()} >Continue with google</button>
+        <br />
+        <button className="btn btn-primary mt-3" onClick={() => continueWithFacebook()} >Continue with facebook</button>
         <p className="mt-3" > Already have an account? <Link to="/login" >Login</Link> </p>
     </div>
 }

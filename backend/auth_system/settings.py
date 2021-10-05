@@ -164,6 +164,7 @@ REST_FRAMEWORK = {
 # Social Auths
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -191,7 +192,7 @@ DJOSER = {
     'ACTIVATION_URL' : 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL' : True,
     'SOCIAL_AUTH_TOKEN_STRATEGY' : 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS' : ['http://localhost:8000'],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS' : ['http://localhost:8000/google', 'http://localhost:8000/facebook'],
     'SERIALIZERS' : {
         'user_create' : 'accounts.serializers.UserCreateSerializer',
         'user' : 'accounts.serializers.UserCreateSerializer',
@@ -202,14 +203,24 @@ DJOSER = {
 }
 
 # Social Auths
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1032726506762-8djp8gqcg4189vbc2u3e21q5u83lttmf.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'xfz0eOsaqUIiQNGFMbep13Mo'
+# For Google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('GOOGLE_API_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('GOOGLE_API_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/userinfo.profile',
     'openid'
 ]
 SOCIAL_AUTH_GOOGLE_OAUTH2_EXTRA_DATA = [ 'first_name', 'last_name' ]
+
+# For Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = os.getenv('FACEBOOK_API_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv('FACEBOOK_API_SECRET')
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields' : 'email, first_name, last_name'
+}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

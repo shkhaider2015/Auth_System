@@ -1,4 +1,4 @@
-import { ECases, IGoogleAuthDetail } from "../Types/Auth";
+import { ECases } from "../Types/Auth";
 import axios from "axios";
 
 export const load_user = () => async (dispatch:any) => {
@@ -51,7 +51,7 @@ export const googleAuthentication = (state:string|string[], code:string|string[]
 
         
 
-        const details:IGoogleAuthDetail = {
+        const details = {
             state : state,
             code : code
         }
@@ -72,9 +72,40 @@ export const googleAuthentication = (state:string|string[], code:string|string[]
             })
         }
     }
-    else
+}
+
+export const facebookAuthentication = (state:string|string[], code:string|string[]) => async (dispatch:any) => {
+    const isAccess:string|null = localStorage.getItem('access');
+    if(state && code && !isAccess)
     {
-       
+        const config = {
+            headers : {
+                'Content-Type' : 'application/x-www-form-urlencoded'
+            }
+        }
+
+        
+
+        const details = {
+            state : state,
+            code : code
+        }
+
+        const formBody  = Object.keys(details).map((key:string) => encodeURIComponent(key) + '=' + encodeURIComponent((details as any)[key]) ).join('&')
+
+        try {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/auth/o/facebook/?${formBody}`, config)
+
+            dispatch({
+                type : ECases.FACEBOOK_AUTH_SUCCESS,
+                payload : res.data
+            })
+            dispatch(load_user())
+        } catch (error) {
+            dispatch({
+                type : ECases.FACEBOOK_AUTH_FAIL
+            })
+        }
     }
 }
 
