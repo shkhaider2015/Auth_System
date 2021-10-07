@@ -6,10 +6,12 @@ import { ResetPasswordConfirmComp } from "./ResetPasswordConfirm";
 import { SignupComp } from "./Signup";
 import { FacebookComp } from "./Facebook";
 import { GoogleComp } from "./Google";
+import { AboutComp } from "./Abouts";
+import { NotFoundComp } from "./NotFind";
 
 
 export  {
         ActivateComp, HomeComp, LoginComp, ResetPasswordComp,
         ResetPasswordConfirmComp, SignupComp, FacebookComp,
-        GoogleComp
+        GoogleComp, AboutComp, NotFoundComp
     }

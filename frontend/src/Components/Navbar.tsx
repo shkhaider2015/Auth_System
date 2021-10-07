@@ -45,6 +45,9 @@ export const NavbarComp = () => {
                         <li className="nav-item">
                             <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link active" aria-current="page" to="/about">About</Link>
+                        </li>
                         {
                             isAuthenticated
                                 ? authLinks()

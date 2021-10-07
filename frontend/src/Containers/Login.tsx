@@ -13,8 +13,6 @@ const LoginComp = () =>
 {
     const isAuthenticated = useSelector((state:IState) => state.Auth.isAuthenticated)
     const { login } = useAction()
-    // const [formData, setFormData] = useState<ILoginFormData>({email : '', password : ''})
-    // const {email, password} = formData;
     const formik:FormikProps<ILoginFormData> = useFormik<ILoginFormData>({
         initialValues : {
             email : '',
@@ -25,16 +23,6 @@ const LoginComp = () =>
             login(val.email, val.password)
         }
     })
-
-    
-
-    // const onChange = (e:any) => setFormData({ ...formData, [e.target.name] : e.target.value })
-    
-    // const onSubmit = (e:any) => {
-    //     e.preventDefault();
-
-    //     login(email, password)
-    // };
 
     const continueWithGoogle = async () =>
     {
@@ -66,12 +54,12 @@ const LoginComp = () =>
     }
 
 
-    return <div className="container mt-5" >
+    return <div className="container mt-5 col-12 col-sm-12 col-md-8 col-lg-6" >
         <h1>Sign In</h1>
         <p>Sign in to your account</p>
 
         <form onSubmit={formik.handleSubmit}>
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
             <input 
                 type="email"
                 className="form-control"
@@ -90,7 +78,7 @@ const LoginComp = () =>
                 </p>
             </div>
 
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
             <input 
                 type="password"
                 className="form-control"
@@ -112,9 +100,10 @@ const LoginComp = () =>
             
             <button className="btn btn-primary mt-2" type="submit" >Login</button>
         </form>
-            <button className="btn btn-danger mt-3" onClick={() => continueWithGoogle()} >Continue with google</button>
+            <h5 className="mt-2" >OR Continue with</h5>
+            <button className="btn btn-danger mt-2" onClick={() => continueWithGoogle()} ><i className="fa fa-google"></i>  Google</button>
             <br />
-            <button className="btn btn-primary mt-3" onClick={() => continueWithFacebook()} >Continue with facebook</button>
+            <button className="btn btn-primary mt-2" onClick={() => continueWithFacebook()} ><i className="fa fa-facebook"></i>  Facebook</button>
             <p className="mt-3" > Dont have an account? <Link to="/signup" >Signup</Link> </p>
             <p className="mt-3" >Forgot your password? <Link to="reset-password" >Reset Password</Link> </p>
     </div>

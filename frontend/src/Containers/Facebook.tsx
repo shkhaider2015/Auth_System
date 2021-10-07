@@ -19,9 +19,6 @@ const FacebookComp: FC<IProps> = (prop: IProps) => {
         const state = values.state ? values.state : null;
         const code = values.code ? values.code : null;
 
-        console.log("State : ", state);
-        console.log("Code : ", code)
-
         if (state && code) {
             facebookAuthentication(state, code);
         }
@@ -34,7 +31,7 @@ const FacebookComp: FC<IProps> = (prop: IProps) => {
             <h1>Welcome to Auth System !</h1>
             <p>This is an incredible authentication system with production level features</p>
             <hr />
-            <p>Click the login button</p>
+            <p>Go To Home</p>
             <button className="btn btn-primary" onClick={() => history.push('/')} >Home</button>
 
 

@@ -31,12 +31,12 @@ const ResetPasswordConfirmComp = () =>
     }
 
 
-    return <div className="container mt-5" >
+    return <div className="container mt-5 col-12 col-sm-12 col-md-8 col-lg-6" >
         <h1>Request Reset Password</h1>
         <p>Sign in to your account</p>
 
         <form onSubmit={(e:any) => onSubmit(e)}>
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
             <input 
                 type="password"
                 className="form-control"
@@ -47,7 +47,7 @@ const ResetPasswordConfirmComp = () =>
                 required />
             </div>
 
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
             <input 
                 type="password"
                 className="form-control"

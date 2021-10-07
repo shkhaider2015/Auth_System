@@ -1,9 +1,8 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   HomeComp, LoginComp, SignupComp, ActivateComp,
   ResetPasswordComp, ResetPasswordConfirmComp,
-  GoogleComp, FacebookComp
+  GoogleComp, FacebookComp, AboutComp, NotFoundComp
 } from "./Containers/Containers";
 import LayoutComp from "./HOC/Layout";
 import { Provider } from "react-redux";
@@ -22,6 +21,8 @@ const App = () => <Provider store={store} >
         <Route exact path="/activate/:uid/:token" component={ActivateComp} />
         <Route exact path="/reset-password" component={ResetPasswordComp} />
         <Route exact path="/password/reset/confirm/:uid/:token" component={ResetPasswordConfirmComp} />
+        <Route exact path="/about" component={AboutComp} />
+        <Route component={NotFoundComp} />
       </Switch>
     </LayoutComp>
   </Router>

@@ -14,14 +14,6 @@ const SignupComp = () => {
     const [isAccountCreated, setIsAccountCreated] = useState<boolean>(false);
     const isAuthenticated = useSelector((state: IState) => state.Auth.isAuthenticated)
     const { signup } = useAction()
-    // const [formData, setFormData] = useState<ISignupFormData>({
-    //     first_name: '',
-    //     last_name: '',
-    //     email: '',
-    //     password: '',
-    //     re_password: ''
-    // })
-    // const { first_name, last_name, email, password, re_password } = formData;
 
     const formik:FormikProps<ISignupFormData> = useFormik<ISignupFormData>({
         initialValues : { 
@@ -38,18 +30,6 @@ const SignupComp = () => {
          }
     })
 
-
-
-    // const onChange = (e: any) => setFormData({ ...formData, [e.target.name]: e.target.value })
-
-    // const onSubmit = (e: any) => {
-    //     e.preventDefault();
-
-    //     if (password === re_password) {
-    //         signup(first_name, last_name, email, password, re_password)
-    //         setIsAccountCreated(true)
-    //     }
-    // };
 
     const continueWithGoogle = async () => {
         try {
@@ -79,13 +59,13 @@ const SignupComp = () => {
     }
 
 
-    return <div className="container mt-5" >
+    return <div className="container mt-5 col-12 col-sm-12 col-md-8 col-lg-6" >
         <h1>SignUp</h1>
         <p>Signup to your account</p>
 
         <form onSubmit={formik.handleSubmit}>
 
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
                 <input
                     type="text"
                     className="form-control"
@@ -103,7 +83,7 @@ const SignupComp = () => {
                     }
                 </p>
             </div>
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
                 <input
                     type="text"
                     className="form-control"
@@ -122,7 +102,7 @@ const SignupComp = () => {
                 </p>
             </div>
 
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
                 <input
                     type="email"
                     className="form-control"
@@ -141,7 +121,7 @@ const SignupComp = () => {
                 </p>
             </div>
 
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
                 <input
                     type="password"
                     className="form-control"
@@ -161,7 +141,7 @@ const SignupComp = () => {
                 </p>
             </div>
 
-            <div className="form-group w-50 mt-2">
+            <div className="form-group  mt-2">
                 <input
                     type="password"
                     className="form-control"
@@ -184,10 +164,10 @@ const SignupComp = () => {
 
             <button className="btn btn-primary mt-2" type="submit" >Signup</button>
         </form>
-
-        <button className="btn btn-danger mt-3" onClick={() => continueWithGoogle()} >Continue with google</button>
+        <h5 className="mt-2" >OR Continue with</h5>
+        <button className="btn btn-danger mt-2" onClick={() => continueWithGoogle()} ><i className="fa fa-google"></i>  Google</button>
         <br />
-        <button className="btn btn-primary mt-3" onClick={() => continueWithFacebook()} >Continue with facebook</button>
+        <button className="btn btn-primary mt-2" onClick={() => continueWithFacebook()} ><i className="fa fa-facebook"></i>  Facebook</button>
         <p className="mt-3" > Already have an account? <Link to="/login" >Login</Link> </p>
     </div>
 }
