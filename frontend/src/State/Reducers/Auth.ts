@@ -4,7 +4,8 @@ const initialState:IAuthState = {
     access : localStorage.getItem('access'),
     refresh : localStorage.getItem('refresh'),
     isAuthenticated : null,
-    user : null
+    user : null,
+    error : null
 }
 
 export const Auth = (state=initialState, action:any) => {
@@ -48,6 +49,17 @@ export const Auth = (state=initialState, action:any) => {
         case ECases.GOOGLE_AUTH_FAIL:
         case ECases.LOGIN_FAIL:
         case ECases.SIGNUP_FAIL:
+            localStorage.removeItem('access')
+            localStorage.removeItem('refresh')
+            state = {
+                ...state,
+                access : null,
+                refresh : null,
+                isAuthenticated : false,
+                user : null,
+                error : payload
+            }
+            return state;
         case ECases.LOGOUT:
             localStorage.removeItem('access')
             localStorage.removeItem('refresh')
@@ -56,7 +68,8 @@ export const Auth = (state=initialState, action:any) => {
                 access : null,
                 refresh : null,
                 isAuthenticated : false,
-                user : null
+                user : null,
+                error : null
             }
             return state;
             

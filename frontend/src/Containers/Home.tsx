@@ -8,7 +8,7 @@ export const HomeComp = () => {
     const history = useHistory();
 
     return <div className="container" >
-        <div className="bg-light p-5 mt-5" >
+        <div className="bg-light p-5 mt-5 rounded" >
             <h1>Welcome to Auth System !</h1>
             <p>This is an incredible authentication system with production level features</p>
             <hr />

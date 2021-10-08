@@ -24,14 +24,13 @@ export interface IAuthState {
     access : string | null
     refresh : string | null
     isAuthenticated : boolean | null
-    user : string | null
+    user : IUser | null
+    error : null | string | any
 }
 
-export interface IGoogleAuthDetail {
-    'state' : string|string[]
-    'code' : string|string[]
+export interface IUser {
+    id : number
+    email :string
+    first_name : string
+    last_name : string
 }
-
-export type items = {
-    [key: string]: string,
-   }[]

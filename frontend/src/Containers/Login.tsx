@@ -11,7 +11,7 @@ import { loginSchema } from "./YupSchema";
 
 const LoginComp = () =>
 {
-    const isAuthenticated = useSelector((state:IState) => state.Auth.isAuthenticated)
+    const authState = useSelector((state:IState) => state.Auth)
     const { login } = useAction()
     const formik:FormikProps<ILoginFormData> = useFormik<ILoginFormData>({
         initialValues : {
@@ -48,7 +48,7 @@ const LoginComp = () =>
 
     
 
-    if(isAuthenticated)
+    if(authState.isAuthenticated)
     {
         return <Redirect to="/" />
     }
@@ -57,7 +57,11 @@ const LoginComp = () =>
     return <div className="container mt-5 col-12 col-sm-12 col-md-8 col-lg-6" >
         <h1>Sign In</h1>
         <p>Sign in to your account</p>
-
+        {
+            authState.error
+            ? <p className="text-denger" > {authState.error} </p>
+            : null
+        }
         <form onSubmit={formik.handleSubmit}>
             <div className="form-group  mt-2">
             <input 

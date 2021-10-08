@@ -67,8 +67,10 @@ export const googleAuthentication = (state:string|string[], code:string|string[]
             })
             dispatch(load_user())
         } catch (error) {
+            console.log("Google : ", error)
             dispatch({
-                type : ECases.GOOGLE_AUTH_FAIL
+                type : ECases.GOOGLE_AUTH_FAIL,
+                payload : "Google"
             })
         }
     }
@@ -102,8 +104,11 @@ export const facebookAuthentication = (state:string|string[], code:string|string
             })
             dispatch(load_user())
         } catch (error) {
+            console.log("Facebook : ", error)
+
             dispatch({
-                type : ECases.FACEBOOK_AUTH_FAIL
+                type : ECases.FACEBOOK_AUTH_FAIL,
+                payload : "Facebook"
             })
         }
     }
@@ -174,9 +179,11 @@ export const login = (email:string, password:string) => async (dispatch:any) => 
 
         dispatch(load_user())
     } catch (error) {
+        console.log("Login : ", error)
 
         dispatch({
-            type  : ECases.LOGIN_FAIL
+            type  : ECases.LOGIN_FAIL,
+            payload : "login"
         })
         
     }
@@ -255,9 +262,11 @@ export const signup = (first_name:string, last_name:string, email:string, passwo
 
         dispatch(load_user())
     } catch (error) {
+        console.log("Signup : ", error)
 
         dispatch({
-            type  : ECases.SIGNUP_FAIL
+            type  : ECases.SIGNUP_FAIL,
+            payload : "signup "
         })
         
     }

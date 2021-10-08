@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux"
 import { IAuthState } from "../State/Types/Auth"
+import { IState } from "../State/Types/Reducers";
 
 export const AboutComp = () =>
 {
     const isAuthenticated = useSelector((state:IAuthState) => state.isAuthenticated);
-
+    const user = useSelector((state: IState) => state.Auth.user);
 
     if(!isAuthenticated)
     {
@@ -21,13 +22,19 @@ export const AboutComp = () =>
     }
 
     return <div className="container" >
-    <div className="bg-light p-5 mt-5" >
-        <h1>Welcome to Auth System About Section !</h1>
+    <div className="bg-light p-5 mt-5 rounded" >
+        {
+            user
+            ? <h1>Hi {user.first_name + user.last_name},</h1>
+            : null
+        }
+        <h2>Welcome to Auth System!</h2>
         <p>This is fully production level authentication system developed using Django and ReactJS </p> 
         <p>For ReactJS i have used Typescript Language where for Django I used Python3</p>
+        <hr />
         <div className="row">
             <div className="col-12 col-sm-12 col-md-6 col-lg-6 ">
-            <h3>Technology that used for Backend</h3>
+            <h4>Technology that used for Backend</h4>
         <ul>
             <li>Django</li>
             <li>Python3</li>
@@ -37,7 +44,7 @@ export const AboutComp = () =>
         </ul>
             </div>
             <div className="col-12 col-sm-12 col-md-6 col-lg-6 ">
-            <h3>Technology that used for Frontend</h3>
+            <h4>Technology that used for Frontend</h4>
         <ul>
             <li>React</li>
             <li>Typescript</li>

@@ -12,7 +12,7 @@ import { signupSchema } from "./YupSchema";
 
 const SignupComp = () => {
     const [isAccountCreated, setIsAccountCreated] = useState<boolean>(false);
-    const isAuthenticated = useSelector((state: IState) => state.Auth.isAuthenticated)
+    const authState = useSelector((state: IState) => state.Auth)
     const { signup } = useAction()
 
     const formik:FormikProps<ISignupFormData> = useFormik<ISignupFormData>({
@@ -51,7 +51,7 @@ const SignupComp = () => {
         }
     }
 
-    if (isAuthenticated) {
+    if (authState.isAuthenticated) {
         return <Redirect to="/" />
     }
     if (isAccountCreated) {
@@ -62,7 +62,11 @@ const SignupComp = () => {
     return <div className="container mt-5 col-12 col-sm-12 col-md-8 col-lg-6" >
         <h1>SignUp</h1>
         <p>Signup to your account</p>
-
+        {
+            authState.error
+            ? <p className="text-denger" > {authState.error} </p>
+            : null
+        }
         <form onSubmit={formik.handleSubmit}>
 
             <div className="form-group  mt-2">
