@@ -46,8 +46,41 @@ export const Auth = (state=initialState, action:any) => {
             return state
        
         case ECases.FACEBOOK_AUTH_FAIL:
+            localStorage.removeItem('access')
+            localStorage.removeItem('refresh')
+            state = {
+                ...state,
+                access : null,
+                refresh : null,
+                isAuthenticated : false,
+                user : null,
+                error : payload
+            }
+            return state;
         case ECases.GOOGLE_AUTH_FAIL:
+            localStorage.removeItem('access')
+            localStorage.removeItem('refresh')
+            state = {
+                ...state,
+                access : null,
+                refresh : null,
+                isAuthenticated : false,
+                user : null,
+                error : payload
+            }
+            return state;
         case ECases.LOGIN_FAIL:
+            localStorage.removeItem('access')
+            localStorage.removeItem('refresh')
+            state = {
+                ...state,
+                access : null,
+                refresh : null,
+                isAuthenticated : false,
+                user : null,
+                error : payload
+            }
+            return state;
         case ECases.SIGNUP_FAIL:
             localStorage.removeItem('access')
             localStorage.removeItem('refresh')

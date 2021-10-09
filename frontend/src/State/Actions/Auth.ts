@@ -1,5 +1,5 @@
 import { ECases } from "../Types/Auth";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 export const load_user = () => async (dispatch:any) => {
     const isAccess:string|null = localStorage.getItem('access')
@@ -47,9 +47,7 @@ export const googleAuthentication = (state:string|string[], code:string|string[]
             headers : {
                 'Content-Type' : 'application/x-www-form-urlencoded'
             }
-        }
-
-        
+        }  
 
         const details = {
             state : state,
@@ -67,10 +65,12 @@ export const googleAuthentication = (state:string|string[], code:string|string[]
             })
             dispatch(load_user())
         } catch (error) {
-            console.log("Google : ", error)
+            let err = error as AxiosError
+            let data = err.response ? err.response.data : "No response found"
+
             dispatch({
                 type : ECases.GOOGLE_AUTH_FAIL,
-                payload : "Google"
+                payload : data.detail
             })
         }
     }
@@ -85,8 +85,6 @@ export const facebookAuthentication = (state:string|string[], code:string|string
                 'Content-Type' : 'application/x-www-form-urlencoded'
             }
         }
-
-        
 
         const details = {
             state : state,
@@ -104,11 +102,12 @@ export const facebookAuthentication = (state:string|string[], code:string|string
             })
             dispatch(load_user())
         } catch (error) {
-            console.log("Facebook : ", error)
+            let err = error as AxiosError
+            let data = err.response ? err.response.data : "No response found"
 
             dispatch({
                 type : ECases.FACEBOOK_AUTH_FAIL,
-                payload : "Facebook"
+                payload : data.detail
             })
         }
     }
@@ -179,11 +178,11 @@ export const login = (email:string, password:string) => async (dispatch:any) => 
 
         dispatch(load_user())
     } catch (error) {
-        console.log("Login : ", error)
-
+        let err = error as AxiosError
+        let data = err.response ? err.response.data : "No response found"
         dispatch({
             type  : ECases.LOGIN_FAIL,
-            payload : "login"
+            payload : data.detail
         })
         
     }
@@ -262,11 +261,12 @@ export const signup = (first_name:string, last_name:string, email:string, passwo
 
         dispatch(load_user())
     } catch (error) {
-        console.log("Signup : ", error)
+        let err = error as AxiosError
+        let data = err.response ? err.response.data : "No response found"
 
         dispatch({
             type  : ECases.SIGNUP_FAIL,
-            payload : "signup "
+            payload : data.detail
         })
         
     }
